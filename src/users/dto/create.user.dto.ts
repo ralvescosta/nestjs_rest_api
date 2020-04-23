@@ -6,7 +6,11 @@ import { ApiProperty } from '@nestjs/swagger';
 export class CreateUserDto extends UserDto {
   @IsString()
   @ApiProperty()
-  public name: string;
+  public first_name: string;
+
+  @IsString()
+  @ApiProperty()
+  public last_name: string;
 
   @IsEmail()
   @ApiProperty()

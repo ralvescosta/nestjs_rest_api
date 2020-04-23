@@ -1,9 +1,9 @@
-import { Users } from './user.entity';
+import { User } from './users.entity';
 import { EntityRepository, Repository } from 'typeorm';
 import { UserDto } from './dto/user.dto';
 
-@EntityRepository(Users)
-export class UserRepository extends Repository<Users> {
+@EntityRepository(User)
+export class UserRepository extends Repository<User> {
   createDog = async (dogDto: UserDto) => {
     return await this.save(dogDto);
   };

@@ -1,40 +1,40 @@
 import { Controller, Get, Param, Post, Body, Put } from '@nestjs/common';
-import { UsersService } from '../provider/users.service';
-import { UserDto } from '../dto/user.dto'
-import { CreateUserDto } from '../dto/create.user.dto'
-import { UpdateUserDto } from '../dto/update.user.dto'
+import { PostsService } from '../provider/posts.service';
+import { PostDto } from '../dto/post.dto'
+import { CreatePostDto } from '../dto/create.post.dto'
+import { UpdatePostDto } from '../dto/update.post.dto'
 
 import { ApiCreatedResponse,ApiBadRequestResponse, ApiConflictResponse, ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 
-@ApiTags('Users')
-@Controller('users')
-export class UsersController {
-  constructor(private userService: UsersService){}
+@ApiTags('Posts')
+@Controller('posts')
+export class PostsController {
+  constructor(private userService: PostsService){}
 
   @Post()
-  @ApiBody({type: CreateUserDto})
+  @ApiBody({type: CreatePostDto})
   @ApiCreatedResponse({description: 'The record has been successfully created.'})
   @ApiBadRequestResponse({description: 'DTO Validate Error'})
   @ApiConflictResponse({description: 'Record Arad Exist'})
-  async create(@Body() user: CreateUserDto): Promise<{}>{
+  async create(@Body() user: CreatePostDto): Promise<{}>{
     return this.userService.create(user)
   }
 
   @Get()
   @ApiBearerAuth()
-  async getAll(): Promise<UserDto[]>{
+  async getAll(): Promise<PostDto[]>{
     return this.userService.findAll()
   }
 
   @Get(':id')
   @ApiBearerAuth()
-  async getById(@Param('id') id: number): Promise<UserDto>{
+  async getById(@Param('id') id: number): Promise<PostDto>{
     return this.userService.findOne(id)
   }
 
   @Put(':id')
   @ApiBearerAuth()
-  async update(@Param('id') id: number, @Body() user: UpdateUserDto): Promise<{}>{
+  async update(@Param('id') id: number, @Body() user: UpdatePostDto): Promise<{}>{
     return this.userService.update(id, user)
   }
 }

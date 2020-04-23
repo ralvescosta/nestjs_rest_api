@@ -1,40 +1,29 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { Injectable } from '@nestjs/common';
-import { UserDto } from '../dto/user.dto'
+import { InjectRepository } from '@nestjs/typeorm';
+
 import { CreateUserDto } from '../dto/create.user.dto'
 import { UpdateUserDto } from '../dto/update.user.dto'
-
+import { Repository } from 'typeorm';
+import { User } from '../users.entity';
 
 @Injectable()
 export class UsersService {
-    private users: UserDto[] = [
-    {
-      id: 1,
-      name: 'Rafael',
-      email: 'rafael@email.com',
-      password: '123456',
-      created_at: "1",
-      updated_at: "2",
-    }
-  ]
+  constructor(
+    @InjectRepository(User)
+    private usersRepository: Repository<User>,
+  ){}
 
-  public create(user: CreateUserDto): {}{
-    let id = 0;
-    if(this.users.length){
-      id = this.users[this.users.length -1].id + 1;
-    }
-    user.id = id;
-    this.users.push(user)
-    return {}
+  public create(user: CreateUserDto): Promise<{}>{
+    return this.usersRepository.save({...user, password_hash: '123456'})
   }
 
-  public getAll(): UserDto[]{
-    return this.users;
+  public findAll(): Promise<User[]>{
+    return this.usersRepository.find();
   }
 
-  public getById(id: number): UserDto{
-    const user: UserDto = this.users.find((user) => user.id == id)
-    return user
+  public findOne(id: number): Promise<User>{
+    return this.usersRepository.findOne(id)
   }
 
   public update(id: number, user:UpdateUserDto): {}{

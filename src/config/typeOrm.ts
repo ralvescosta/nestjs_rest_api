@@ -1,5 +1,5 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm'
-import { Users } from '../users/user.entity'
+import { User } from '../users/users.entity'
 
 const options: TypeOrmModuleOptions = {
     type: 'postgres',
@@ -9,10 +9,10 @@ const options: TypeOrmModuleOptions = {
     database: 'estudos',
     port: 5432,
     logging: false,
-    entities: [Users],
+    entities: [User],
     migrations: ['src/migration'],
-    migrationsRun: false,
-    synchronize: false,
+    migrationsRun: true,
+    synchronize: true,
 };
 
 export default options;

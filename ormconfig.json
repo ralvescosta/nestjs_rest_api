@@ -1,6 +1,0 @@
-{
-  "migrations": ["src/migration/**/*.ts"],
-  "cli": {
-    "migrationsDir": "src/migration"
-  }
-}
