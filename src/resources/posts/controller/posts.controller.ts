@@ -12,29 +12,30 @@ export class PostsController {
   constructor(private userService: PostsService){}
 
   @Post()
+  @ApiBearerAuth()
   @ApiBody({type: CreatePostDto})
   @ApiCreatedResponse({description: 'The record has been successfully created.'})
   @ApiBadRequestResponse({description: 'DTO Validate Error'})
   @ApiConflictResponse({description: 'Record Arad Exist'})
-  async create(@Body() user: CreatePostDto): Promise<{}>{
+  private async create(@Body() user: CreatePostDto): Promise<{}>{
     return this.userService.create(user)
   }
 
   @Get()
   @ApiBearerAuth()
-  async getAll(): Promise<PostDto[]>{
+  private async getAll(): Promise<PostDto[]>{
     return this.userService.findAll()
   }
 
   @Get(':id')
   @ApiBearerAuth()
-  async getById(@Param('id') id: number): Promise<PostDto>{
+  private async getById(@Param('id') id: number): Promise<PostDto>{
     return this.userService.findOne(id)
   }
 
   @Put(':id')
   @ApiBearerAuth()
-  async update(@Param('id') id: number, @Body() user: UpdatePostDto): Promise<{}>{
+  private async update(@Param('id') id: number, @Body() user: UpdatePostDto): Promise<{}>{
     return this.userService.update(id, user)
   }
 }

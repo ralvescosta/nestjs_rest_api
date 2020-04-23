@@ -1,36 +1,19 @@
-import { Controller,Post, Body, Res } from '@nestjs/common';
-import { SessionsService } from '../provider/sessions.service';
-import { CreateSessionDto } from '../dto/create.session.dto'
-import { SessionDto } from '../dto/session.dto'
-import { Response } from 'express';
-
+import { Controller, Post, Request, UseGuards } from '@nestjs/common';
+import { LocalAuthGuard } from '../../auth/local.strategy/local-auth.guard'
+import { AuthService } from '../../auth/auth.service'
 
 import {
-  ApiResponse,
-  ApiBadRequestResponse,
-  ApiBearerAuth,
   ApiTags,
-  ApiUnauthorizedResponse,
-  ApiInternalServerErrorResponse
 } from '@nestjs/swagger';
 
 @ApiTags('Session')
-@ApiBearerAuth()
 @Controller('session')
 export class SessionsController {
-  constructor(private userService: SessionsService){}
+  constructor(private authService: AuthService){}
 
   @Post()
-  @ApiResponse({status:200, description: 'Session has been successfully created.'})
-  @ApiBadRequestResponse({description: 'DTO Validate Error'})
-  @ApiUnauthorizedResponse({description: 'User is Unauthorized'})
-  @ApiInternalServerErrorResponse({description: 'Internal Server Error'})
-  private async create(@Body() session: CreateSessionDto, @Res() response: Response): Promise<SessionDto | any>{
-    const resp = await this.userService.create(session)
-
-    if(resp){
-      return response.status(200).json(resp)
-    }
-    return response.status(403).json({error: 403, msg: 'Unauthorized'})
+  @UseGuards(LocalAuthGuard)
+  async create(@Request() req: any): Promise<any>{
+    return this.authService.generateAccessToken(req);
   }
 }

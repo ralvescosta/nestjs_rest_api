@@ -31,7 +31,7 @@ export class User {
   readonly email: string;
 
   @Column()
-  protected password: string;
+  public password: string;
 
   @CreateDateColumn()
   readonly created_at: Date;
