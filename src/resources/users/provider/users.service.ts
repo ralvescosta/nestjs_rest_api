@@ -14,8 +14,10 @@ export class UsersService {
     private usersRepository: Repository<User>,
   ){}
 
-  public create(user: CreateUserDto): Promise<{}>{
-    return this.usersRepository.save({...user, password_hash: '123456'})
+  public async create(user: CreateUserDto): Promise<User>{
+    console.log(user)
+    const newUser = this.usersRepository.create(user)
+    return this.usersRepository.save(newUser)
   }
 
   public findAll(): Promise<User[]>{

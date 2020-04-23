@@ -4,26 +4,44 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  DeleteDateColumn
+  DeleteDateColumn,
+  OneToMany,
+  JoinColumn
 } from 'typeorm';
+
+import {User} from '../users/users.entity'
 
 @Entity('posts')
 export class Post {
   @PrimaryGeneratedColumn()
-  id: number;
+  readonly id: number;
+
+  /** */
+  @Column()
+  readonly user_id: string;
+
+  /**
+  * FK CONFIGURATION
+  * First Parameter: Access the Model With as a PK;
+  * Second Parameter: Receive the model instance and return the FK Configuration
+  */
+  @OneToMany(() => User, (user) => user.post) // FK
+  @JoinColumn({ name: 'user_id' })
+  readonly user: User;
+  /** * */
 
   @Column()
-  description: string;
+  readonly description: string;
 
   @Column()
-  content: string;
+  readonly content: string;
 
   @CreateDateColumn()
-  created_at: Date;
+  readonly created_at: Date;
 
   @UpdateDateColumn()
-  updated_at: Date;
+  readonly updated_at: Date;
 
   @DeleteDateColumn()
-  deleted_at: Date;
+  readonly deleted_at: Date;
 }

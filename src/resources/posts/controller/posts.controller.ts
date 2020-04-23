@@ -7,7 +7,7 @@ import { UpdatePostDto } from '../dto/update.post.dto'
 import { ApiCreatedResponse,ApiBadRequestResponse, ApiConflictResponse, ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Posts')
-@Controller('posts')
+@Controller('post')
 export class PostsController {
   constructor(private userService: PostsService){}
 
