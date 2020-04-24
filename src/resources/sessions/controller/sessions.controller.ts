@@ -14,6 +14,6 @@ export class SessionsController {
   @Post()
   @UseGuards(LocalAuthGuard)
   async create(@Request() req: any): Promise<any>{
-    return this.authService.generateAccessToken(req);
+    return this.authService.generateAccessToken(req.user);
   }
 }

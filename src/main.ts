@@ -1,9 +1,10 @@
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as helmet from 'helmet';
 import * as rateLimit from 'express-rate-limit';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+// import { RolesGuard }from './resources/auth/acl.strategy/roles.guard'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -19,6 +20,7 @@ async function bootstrap() {
     whitelist: true,
     forbidNonWhitelisted: true,
   }))
+  // app.useGlobalGuards(new RolesGuard(new Reflector()));
 
   if(process.env.NODE_ENV === 'development') {
     const options = new DocumentBuilder()
