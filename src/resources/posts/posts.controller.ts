@@ -1,8 +1,8 @@
 import { Controller, Get, Param, Post, Body, Put } from '@nestjs/common';
-import { PostsService } from '../provider/posts.service';
-import { Post as PostDto } from '../posts.entity';
-import { CreatePostDto } from '../dto/create.post.dto'
-import { UpdatePostDto } from '../dto/update.post.dto'
+import { PostsService } from './posts.service';
+import { Post as PostDto } from './posts.entity';
+import { CreatePostDto } from './dto/create.post.dto'
+import { UpdatePostDto } from './dto/update.post.dto'
 
 import { ApiCreatedResponse,ApiBadRequestResponse, ApiConflictResponse, ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 

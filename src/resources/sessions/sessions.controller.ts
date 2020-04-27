@@ -1,6 +1,6 @@
 import { Controller, Post, Request, UseGuards } from '@nestjs/common';
-import { LocalAuthGuard } from '../../auth/local.strategy/local-auth.guard'
-import { AuthService } from '../../auth/auth.service'
+import { LocalAuthGuard } from '../auth/local.strategy/local-auth.guard'
+import { AuthService } from '../auth/auth.service'
 
 import {
   ApiTags,

@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateUserDto } from '../dto/create.user.dto'
-import { UpdateUserDto } from '../dto/update.user.dto'
+import { CreateUserDto } from './dto/create.user.dto'
+import { UpdateUserDto } from './dto/update.user.dto'
 import { Repository } from 'typeorm';
-import { User } from '../users.entity';
+import { User } from './users.entity';
 
 @Injectable()
 export class UsersService {
@@ -19,19 +19,19 @@ export class UsersService {
     return this.usersRepository.save(newUser)
   }
 
-  public findAll(): Promise<User[]>{
+  public async findAll(): Promise<User[]>{
     return this.usersRepository.find();
   }
 
-  public findById(id: number): Promise<User>{
+  public async findById(id: number): Promise<User>{
     return this.usersRepository.findOne(id)
   }
 
-  public findByEmail(email: any): Promise<User>{
+  public async findByEmail(email: any): Promise<User>{
     return this.usersRepository.findOne({where: {email}})
   }
 
-  public update(id: number, user:UpdateUserDto): {}{
+  public async update(id: number, user:UpdateUserDto): Promise<{}>{
     console.log(id, user)
     return {}
   }

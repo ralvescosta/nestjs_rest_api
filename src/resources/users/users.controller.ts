@@ -1,11 +1,11 @@
 import { Controller, Get, Param, Post, Body, Put, ConflictException, UseGuards, Request } from '@nestjs/common';
-import { UsersService } from '../provider/users.service';
-import { User as UserDto } from '../users.entity';
-import { CreateUserDto } from '../dto/create.user.dto'
-import { UpdateUserDto } from '../dto/update.user.dto'
-import { JwtAuthGuard } from '../../auth/jwt.strategy/jwt-auth.guard'
-import { RolesGuard } from '../../auth/acl.strategy/roles.guard'
-import { Roles } from '../../auth/decorators/roles.decorator'
+import { UsersService } from './users.service';
+import { User as UserDto } from './users.entity';
+import { CreateUserDto } from './dto/create.user.dto'
+import { UpdateUserDto } from './dto/update.user.dto'
+import { JwtAuthGuard } from '../auth/jwt.strategy/jwt-auth.guard'
+import { RolesGuard } from '../auth/acl.strategy/roles.guard'
+import { Roles } from '../auth/decorators/roles.decorator'
 
 import {
   ApiCreatedResponse,
